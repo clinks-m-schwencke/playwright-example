@@ -9,6 +9,14 @@
 
 	export let onEdit: () => void;
 
+	$: displayDate = duedate
+		? new Date(duedate).toLocaleDateString(undefined, {
+				year: 'numeric',
+				month: 'numeric',
+				day: 'numeric'
+			})
+		: '';
+
 	// TODO NEXT
 	// Wrap in form to update, call requestSubmit on:checked:
 	let form: HTMLFormElement;
@@ -31,12 +39,10 @@
 					on:change={(e) => form.requestSubmit()}
 				/>
 				{title}
+				{' '}
+				{displayDate}
 			</summary>
-			{#if duedate}
-				<p>
-					Due: {duedate}
-				</p>
-			{/if}
+
 			<p>
 				{description}
 			</p>

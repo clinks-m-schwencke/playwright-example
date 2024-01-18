@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import Input from './Input.svelte';
+	import Checkbox from './Checkbox.svelte';
+	import DateInput from './DateInput.svelte';
 	import TextArea from './TextArea.svelte';
+	import TextField from './TextField.svelte';
 	export let id = '';
 	export let isdone = false;
 	export let isNew = false;
@@ -15,9 +17,9 @@
 <form method="post" action={isNew ? '?/create' : '?/update'} use:enhance on:submit={onSave}>
 	<input id="id" name="id" type="hidden" value={id} />
 	<h3>{isNew ? 'New Todo' : 'Edit Todo'}</h3>
-	<Input id="isdone" label="Done?" type="checkbox" checked={isdone} />
-	<Input id="title" label="Title" required value={title} />
-	<Input id="due" label="Due Date" type="date" value={duedate} />
+	<Checkbox id="isdone" label="Done?" checked={isdone} />
+	<TextField id="title" label="Title" required value={title} />
+	<DateInput id="duedate" label="Due Date" value={duedate} />
 	<TextArea id="description" label="Description" value={description} />
 
 	<button type="button" on:click={onCancel}>Cancel</button>

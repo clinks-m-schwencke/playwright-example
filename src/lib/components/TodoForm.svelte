@@ -1,26 +1,48 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
+	import type { ITodo } from '$lib/types/todo';
 	import Checkbox from './Checkbox.svelte';
 	import DateInput from './DateInput.svelte';
 	import TextArea from './TextArea.svelte';
 	import TextField from './TextField.svelte';
+
+	export let onSave: (newTodo: ITodo) => void;
+	export let onCancel: () => void;
+
 	export let id = '';
 	export let isdone = false;
 	export let isNew = false;
-	export let onSave: () => void;
-	export let onCancel: () => void;
 	export let title: string = '';
 	export let description: string = '';
 	export let duedate: string = '';
+
+	async function handleSubmit() {
+		const request = {
+			id: id || undefined,
+			isdone,
+			title,
+			description,
+			duedate
+		};
+		console.log(request);
+		const res = await fetch('/api/todo', {
+			method: isNew ? 'POST' : 'PATCH',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(request)
+		});
+		const json = await res.json();
+		onSave(json);
+	}
 </script>
 
-<form method="post" action={isNew ? '?/create' : '?/update'} use:enhance on:submit={onSave}>
+<form method="post" on:submit|preventDefault={handleSubmit}>
 	<input id="id" name="id" type="hidden" value={id} />
 	<h3>{isNew ? 'New Todo' : 'Edit Todo'}</h3>
-	<Checkbox id="isdone" label="Done?" checked={isdone} />
-	<TextField id="title" label="Title" required value={title} />
-	<DateInput id="duedate" label="Due Date" value={duedate} />
-	<TextArea id="description" label="Description" value={description} />
+	<Checkbox id="isdone" label="Done?" bind:checked={isdone} />
+	<TextField id="title" label="Title" required bind:value={title} />
+	<DateInput id="duedate" label="Due Date" bind:value={duedate} />
+	<TextArea id="description" label="Description" bind:value={description} />
 
 	<button type="button" on:click={onCancel}>Cancel</button>
 	<button type="submit">{isNew ? 'Add Task' : 'Save Task'}</button>

@@ -7,6 +7,10 @@
 	export let required = false;
 	let className = '';
 	export { className as class };
+
+	$: {
+		console.log(value);
+	}
 </script>
 
 <div>

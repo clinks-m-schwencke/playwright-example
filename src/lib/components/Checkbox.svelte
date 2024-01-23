@@ -10,22 +10,22 @@
 </script>
 
 <div>
-	<label for={id}>
+	<label>
 		{label}
 		{#if required}
 			<span>*</span>
 		{/if}
+		<input
+			class={className}
+			type="checkbox"
+			{placeholder}
+			{required}
+			{disabled}
+			{id}
+			name={id}
+			bind:checked
+		/>
 	</label>
-	<input
-		class={className}
-		type="checkbox"
-		{placeholder}
-		{required}
-		{disabled}
-		{id}
-		name={id}
-		bind:checked
-	/>
 </div>
 
 <style>

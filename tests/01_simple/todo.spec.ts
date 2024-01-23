@@ -7,19 +7,26 @@ dotenv.config({ path: path.resolve('.env.test.local') })
 
 test('タスクが表示する', async ({ page }) => {
 
+    const email = process.env.LOGIN_EMAIL
+    const password = process.env.LOGIN_PASSWORD
+
+    if (!email || !password) {
+        expect(email).toBeTruthy()
+        expect(password).toBeTruthy()
+        return
+    }
+
+    // On Dev server, this will break
     await page.goto('/login')
 
     // Eメールを入力する
-    await page
-        .getByLabel('Email')
-        .fill(process.env.LOGIN_EMAIL ?? '')
+    await page.getByLabel('Email').fill(email)
 
     // パスワードを入力する
-    await page
-        .getByLabel('Password')
-        .fill(process.env.LOGIN_PASSWORD ?? '')
+    await page.getByLabel('Password').fill(password)
 
-    page.pause()
+    await expect(page.getByLabel('Email')).toHaveValue(email)
+    await expect(page.getByLabel('Password')).toHaveValue(password)
 
     // ログインボタンをクリック
     await page.getByRole('button', { name: 'Login' }).click()
@@ -33,37 +40,52 @@ test('タスクが表示する', async ({ page }) => {
     await expect(page).toHaveTitle('Todo List')
 
     // テスト表示
-    await expect(page.getByRole('button', { name: 'test task' })).toBeVisible()
+    await expect(page.getByTestId('todo-title').first()).toBeVisible()
     // テストがないテキスト表示しない
     await expect(page.getByText('You have no tasks :(')).toBeHidden()
 
+    // toHaveTextはぴったりじゃない場合エラー
+    await expect(page.getByTestId('todo-title').first()).toHaveText('test task 02/02/2024')
+    // toContainTextは部分だけでOK
+    await expect(page.getByTestId('todo-title').first()).toContainText('test task')
+
     // タスクを編集してみます
-    await page.getByRole('button', { name: 'test task' }).click()
-    await page.getByRole('button', { name: 'Edit Todo' }).click()
+    await page.getByTestId('todo-title').first().click()
+    await page.getByRole('button', { name: 'Edit Todo' }).first().click()
 
     // タスクの値を確認
     await expect(page.getByLabel('Title')).toHaveValue('test task')
     // await expect()
+    await expect(page.getByLabel('Due Date')).toHaveValue('2024-02-02')
+    await expect(page.getByLabel('Description')).toHaveValue('A description for the test task')
 
 })
 
 test('タスクが無いなら、ないメッセージを送ります', async ({ page }) => {
 
     await page.route('**/api/todo**', async (route, request) => {
+        if (request.method() !== 'GET') {
+            return route.continue()
+        }
         return route.fulfill({ json: [] })
     })
+
+    const email = process.env.LOGIN_EMAIL
+    const password = process.env.LOGIN_PASSWORD
+
+    if (!email || !password) {
+        expect(email).toBeTruthy()
+        expect(password).toBeTruthy()
+        return
+    }
 
     await page.goto('/login')
 
     // Eメールを入力する
-    await page
-        .getByLabel('Email')
-        .fill(process.env.LOGIN_EMAIL ?? '')
+    await page.getByLabel('Email').fill(email)
 
     // パスワードを入力する
-    await page
-        .getByLabel('Password')
-        .fill(process.env.LOGIN_PASSWORD ?? '')
+    await page.getByLabel('Password').fill(password)
 
     // ログインボタンをクリック
     await page.getByRole('button', { name: 'Login' }).click()
@@ -73,4 +95,53 @@ test('タスクが無いなら、ないメッセージを送ります', async ({
 
     // テスト表示せず、テストがないメッセージが表示
     await expect(page.getByText('You have no tasks :(')).toBeVisible()
+})
+
+
+test('タスクを追加', async ({ page, context }) => {
+
+    // POSTを実際に送らないよう
+    await page.route('**/api/todo**', async (route, request) => {
+        if (request.method() !== 'POST') {
+            return route.continue()
+        }
+        // POSTのレスポンスを作る
+        return route.fulfill({
+            json: {
+                id: '12345678',
+                title: 'NEW TASK',
+            }
+        })
+    })
+
+    const email = process.env.LOGIN_EMAIL
+    const password = process.env.LOGIN_PASSWORD
+
+    if (!email || !password) {
+        expect(email).toBeTruthy()
+        expect(password).toBeTruthy()
+        return
+    }
+
+    await page.goto('/login')
+
+    // Eメールを入力する
+    await page.getByLabel('Email').fill(email)
+
+    // パスワードを入力する
+    await page.getByLabel('Password').fill(password)
+
+    // ログインボタンをクリック
+    await page.getByRole('button', { name: 'Login' }).click()
+
+    // ページに着くまで待つ
+    await page.waitForURL('/')
+
+    // テスト表示せず、テストがないメッセージが表示
+    await page.getByRole('button', { name: 'Add New Task' }).click()
+    await page.getByLabel('Title *').fill('NEW TASK')
+
+    await page.getByRole('button', { name: 'Add Task' }).click()
+
+    await expect(page.getByText('NEW TASK', { exact: true })).toBeVisible()
 })

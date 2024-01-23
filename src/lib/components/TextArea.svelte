@@ -10,8 +10,10 @@
 </script>
 
 <div>
-	<label for={id}>{label}</label>
-	<textarea class={className} {placeholder} {required} {disabled} {id} name={id} {value} />
+	<label>
+		{label}
+		<textarea class={className} {placeholder} {required} {disabled} {id} name={id} {value} />
+	</label>
 </div>
 
 <style>

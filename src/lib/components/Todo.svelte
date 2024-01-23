@@ -10,7 +10,7 @@
 	export let onEdit: () => void;
 
 	$: displayDate = duedate
-		? new Date(duedate).toLocaleDateString(undefined, {
+		? new Date(duedate).toLocaleDateString('en-AU', {
 				year: 'numeric',
 				month: 'numeric',
 				day: 'numeric'
@@ -30,7 +30,7 @@
 
 	<aside class="todo">
 		<details>
-			<summary>
+			<summary data-testid="todo-title">
 				<input
 					id="isdone"
 					name="isdone"

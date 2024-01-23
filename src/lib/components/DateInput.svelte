@@ -14,22 +14,22 @@
 </script>
 
 <div>
-	<label for={id}>
+	<label>
 		{label}
 		{#if required}
 			<span>*</span>
 		{/if}
+		<input
+			class={className}
+			type="date"
+			{placeholder}
+			{required}
+			{disabled}
+			{id}
+			name={id}
+			bind:value
+		/>
 	</label>
-	<input
-		class={className}
-		type="date"
-		{placeholder}
-		{required}
-		{disabled}
-		{id}
-		name={id}
-		bind:value
-	/>
 </div>
 
 <style>

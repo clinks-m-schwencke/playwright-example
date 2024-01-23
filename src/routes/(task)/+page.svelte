@@ -32,12 +32,15 @@
 	};
 </script>
 
+<svelte:head>
+	<title>Todo List</title>
+</svelte:head>
 <main>
 	<h1>Todo List!</h1>
 	{#await getTodos()}
 		<p>Loading Todos...</p>
 	{:then}
-		{#if tasks && tasks.length > 1}
+		{#if tasks && tasks.length > 0}
 			{#each tasks as task, index}
 				{#if editingIndex === index}
 					<TodoForm {...task} onSave={onSaveEdit(index)} onCancel={() => (editingIndex = -1)} />

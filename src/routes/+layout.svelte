@@ -7,7 +7,7 @@
 
 <header>
 	<nav>
-		<a href="/">Showcase</a>
+		<a href="/">Playwright Example</a>
 		<div>
 			{#if !data.user}
 				<a href="/login"><strong>Login</strong></a>

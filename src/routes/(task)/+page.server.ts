@@ -1,6 +1,8 @@
 // import { serialiseNonPOJOs } from '$lib/utils.js'
 // import { error, redirect } from '@sveltejs/kit'
 
+import { redirect } from "@sveltejs/kit"
+
 // export type ITodo = {
 //     id: string
 //     isDone: boolean
@@ -9,25 +11,26 @@
 //     dueDate: string
 // }
 
-// export const load = async ({ locals }) => {
-//     if (!locals.pb.authStore.isValid) {
-//         throw redirect(303, '/login')
-//     }
-//     const getList = async (userId: string) => {
-//         try {
-//             const todos: ITodo[] = serialiseNonPOJOs(await locals.pb.collection('tasks').getFullList(undefined, {
-//                 filter: `user = "${userId}"`
-//             }))
-//             return todos
-//         } catch (err: any) {
-//             console.log(err)
-//             throw error(err.staus, err.message)
-//         }
-//     }
-//     return {
-//         tasks: await getList(locals.user.id)
-//     }
-// }
+export const load = async ({ locals }) => {
+    if (!locals.pb.authStore.isValid) {
+        throw redirect(303, '/login')
+    }
+    return
+    // const getList = async (userId: string) => {
+    //     try {
+    //         const todos: ITodo[] = serialiseNonPOJOs(await locals.pb.collection('tasks').getFullList(undefined, {
+    //             filter: `user = "${userId}"`
+    //         }))
+    //         return todos
+    //     } catch (err: any) {
+    //         console.log(err)
+    //         throw error(err.staus, err.message)
+    //     }
+    // }
+    // return {
+    //     tasks: await getList(locals.user.id)
+    // }
+}
 
 // export const actions = {
 //     create: async ({ locals, request }) => {

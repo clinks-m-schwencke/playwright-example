@@ -1,5 +1,5 @@
 <script>
-	import { Input } from '$lib/components';
+	import Input from '$lib/components/Input.svelte';
 </script>
 
 <div>

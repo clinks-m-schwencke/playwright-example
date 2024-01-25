@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	export let value = '';
 	export let placeholder = '';
 	export let id: string;
@@ -9,6 +10,11 @@
 	let className = '';
 	export { className as class };
 	export let checked = false;
+
+	// ブラウザが準備できたまでに入力できない
+	$: {
+		disabled = disabled || !browser;
+	}
 </script>
 
 <div>

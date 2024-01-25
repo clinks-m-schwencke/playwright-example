@@ -3,20 +3,22 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
 	testDir: 'tests',
 	webServer: {
-		command: 'npm run build && npm run preview',
-		port: 4173,
-		reuseExistingServer: false,
+		command: 'npm run dev',
+		port: 5173,
+		reuseExistingServer: true,
 	},
 	// webServer: {
 	// 	command: 'npm run build && npm run preview',
 	// 	port: 4173
 	// },
 	// testMatch: /(.+\.)?(test|spec)\.[jt]s/,
+
 	use: {
-		baseURL: 'http://localhost:4173',
+		baseURL: 'http://localhost:5173',
 		trace: 'on-first-retry',
 		...devices['Desktop Chrome']
 	},
+
 	projects: [
 		{
 			name: 'setup',
@@ -33,6 +35,9 @@ export default defineConfig({
 		{
 			name: 'advanced',
 			testDir: 'tests/03_advanced',
+			use: {
+				storageState: 'tests/auth/user.json',
+			},
 			dependencies: ['setup'],
 		}
 		// {

@@ -103,10 +103,10 @@ test('タスクを追加', async ({ page, context }) => {
     // POSTを実際に送らないよう
     await page.route('**/api/todo**', async (route, request) => {
         if (request.method() !== 'POST') {
-            return route.continue()
+            return await route.continue()
         }
         // POSTのレスポンスを作る
-        return route.fulfill({
+        return await route.fulfill({
             json: {
                 id: '12345678',
                 title: 'NEW TASK',
@@ -136,6 +136,7 @@ test('タスクを追加', async ({ page, context }) => {
 
     // ページに着くまで待つ
     await page.waitForURL('/')
+    await page.waitForResponse('/api/todo')
 
     // テスト表示せず、テストがないメッセージが表示
     await page.getByRole('button', { name: 'Add New Task' }).click()

@@ -1,10 +1,10 @@
 
 import { test as base } from '@playwright/test'
-import { TodoPage } from '../03_advanced/todo.page'
+import { TodoPageModel } from '../03_advanced/todo.page'
 import { mockApi } from './testApiMock'
 
 type IFixtures = {
-    todoPage: TodoPage
+    todoPage: TodoPageModel
 }
 // テストもエクスポート
 export { expect } from '@playwright/test'
@@ -18,7 +18,7 @@ export const test = base.extend<IFixtures>({
     },
     todoPage: async ({ page, context }, use) => {
         // ページのモデルを作成
-        const todoPage = new TodoPage(page)
+        const todoPage = new TodoPageModel(page)
 
         await mockApi(context, 'todo', [
             { method: 'POST', json: { id: '12345678', title: 'NEW TASK' } }

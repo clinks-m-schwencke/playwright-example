@@ -1,7 +1,7 @@
 import type { ITodo } from "$lib/types/todo";
 import { expect, type Locator, type Page } from "@playwright/test";
 
-export class TodoPage {
+export class TodoPageModel {
     readonly page: Page
 
     readonly url = "/"

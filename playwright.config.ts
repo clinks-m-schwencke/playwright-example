@@ -25,15 +25,15 @@ export default defineConfig({
 			testMatch: /.*\.setup\.ts/,
 		},
 		{
-			name: 'simple',
+			name: '初級',
 			testDir: 'tests/01_simple',
 		},
 		{
-			name: 'intermediate',
+			name: '中級',
 			testDir: 'tests/02_intermediate',
 		},
 		{
-			name: 'advanced',
+			name: '上級',
 			testDir: 'tests/03_advanced',
 			use: {
 				storageState: 'tests/auth/user.json',

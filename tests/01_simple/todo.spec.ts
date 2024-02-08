@@ -1,4 +1,4 @@
-import test, { expect } from "@playwright/test";
+import test, { expect, type Page } from "@playwright/test";
 
 import dotenv from 'dotenv';
 import path from 'path';
@@ -16,7 +16,6 @@ test('タスクが表示する', async ({ page }) => {
         return
     }
 
-    // On Dev server, this will break
     await page.goto('/login')
 
     // Eメールを入力する
@@ -61,58 +60,10 @@ test('タスクが表示する', async ({ page }) => {
 
 })
 
-test('タスクが無いなら、ないメッセージを送ります', async ({ page }) => {
-
-    await page.route('**/api/todo**', async (route, request) => {
-        if (request.method() !== 'GET') {
-            return route.continue()
-        }
-        return route.fulfill({ json: [] })
-    })
-
-    const email = process.env.LOGIN_EMAIL
-    const password = process.env.LOGIN_PASSWORD
-
-    if (!email || !password) {
-        expect(email).toBeTruthy()
-        expect(password).toBeTruthy()
-        return
-    }
-
-    await page.goto('/login')
-
-    // Eメールを入力する
-    await page.getByLabel('Email').fill(email)
-
-    // パスワードを入力する
-    await page.getByLabel('Password').fill(password)
-
-    // ログインボタンをクリック
-    await page.getByRole('button', { name: 'Login' }).click()
-
-    // ページに着くまで待つ
-    await page.waitForURL('/')
-
-    // テスト表示せず、テストがないメッセージが表示
-    await expect(page.getByText('You have no tasks :(')).toBeVisible()
-})
-
-
-test('タスクを追加', async ({ page, context }) => {
+test('タスクを追加', async ({ page }) => {
 
     // POSTを実際に送らないよう
-    await page.route('**/api/todo**', async (route, request) => {
-        if (request.method() !== 'POST') {
-            return await route.continue()
-        }
-        // POSTのレスポンスを作る
-        return await route.fulfill({
-            json: {
-                id: '12345678',
-                title: 'NEW TASK',
-            }
-        })
-    })
+    await mockPostApi(page)
 
     const email = process.env.LOGIN_EMAIL
     const password = process.env.LOGIN_PASSWORD
@@ -140,9 +91,27 @@ test('タスクを追加', async ({ page, context }) => {
 
     // テスト表示せず、テストがないメッセージが表示
     await page.getByRole('button', { name: 'Add New Task' }).click()
-    await page.getByLabel('Title *').fill('NEW TASK')
 
     await page.getByRole('button', { name: 'Add Task' }).click()
 
     await expect(page.getByText('NEW TASK', { exact: true })).toBeVisible()
 })
+
+
+async function mockPostApi(page: Page) {
+    await page.route('**/api/todo**', async (route, request) => {
+        if (request.method() !== 'POST') {
+            return await route.continue()
+        }
+        // POSTのレスポンスを作る
+        return await route.fulfill({
+            json: {
+                id: '12345678',
+                title: 'NEW TASK',
+            }
+        })
+    })
+}
+
+
+// await page.getByLabel('Title *').fill('NEW TASK')

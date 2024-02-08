@@ -7,11 +7,6 @@ export default defineConfig({
 		port: 5173,
 		reuseExistingServer: true,
 	},
-	// webServer: {
-	// 	command: 'npm run build && npm run preview',
-	// 	port: 4173
-	// },
-	// testMatch: /(.+\.)?(test|spec)\.[jt]s/,
 
 	use: {
 		baseURL: 'http://localhost:5173',

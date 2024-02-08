@@ -2,10 +2,10 @@
   "cookies": [
     {
       "name": "pb_auth",
-      "value": "%7B%22token%22%3A%22eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2xsZWN0aW9uSWQiOiJfcGJfdXNlcnNfYXV0aF8iLCJleHAiOjE3MDczNjgxNTAsImlkIjoiZWl1cGpramczaXQ5MXVsIiwidHlwZSI6ImF1dGhSZWNvcmQifQ.0T0_zifZ2pV5JcW-pDxoF-r_Nj7IRPS9o8rMUb_so3o%22%2C%22model%22%3A%7B%22avatar%22%3A%22%22%2C%22collectionId%22%3A%22_pb_users_auth_%22%2C%22collectionName%22%3A%22users%22%2C%22created%22%3A%222023-12-25%2001%3A35%3A36.778Z%22%2C%22email%22%3A%22test-user%40example.com%22%2C%22emailVisibility%22%3Afalse%2C%22id%22%3A%22eiupjkjg3it91ul%22%2C%22name%22%3A%22Test%20User%22%2C%22updated%22%3A%222023-12-25%2001%3A35%3A36.778Z%22%2C%22username%22%3A%22test-user%22%2C%22verified%22%3Atrue%7D%7D",
+      "value": "%7B%22token%22%3A%22eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2xsZWN0aW9uSWQiOiJfcGJfdXNlcnNfYXV0aF8iLCJleHAiOjE3MDg0MDg2MDAsImlkIjoiZWl1cGpramczaXQ5MXVsIiwidHlwZSI6ImF1dGhSZWNvcmQifQ.84nTGJdzYIxzVWz0_nDsnJFKfeOiq1rk2qusUP9KN1k%22%2C%22model%22%3A%7B%22avatar%22%3A%22%22%2C%22collectionId%22%3A%22_pb_users_auth_%22%2C%22collectionName%22%3A%22users%22%2C%22created%22%3A%222023-12-25%2001%3A35%3A36.778Z%22%2C%22email%22%3A%22test-user%40example.com%22%2C%22emailVisibility%22%3Afalse%2C%22id%22%3A%22eiupjkjg3it91ul%22%2C%22name%22%3A%22Test%20User%22%2C%22updated%22%3A%222023-12-25%2001%3A35%3A36.778Z%22%2C%22username%22%3A%22test-user%22%2C%22verified%22%3Atrue%7D%7D",
       "domain": "localhost",
       "path": "/",
-      "expires": 1707368150.437947,
+      "expires": 1708408600.557046,
       "httpOnly": true,
       "secure": false,
       "sameSite": "Strict"

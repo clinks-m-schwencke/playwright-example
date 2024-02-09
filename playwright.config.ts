@@ -28,37 +28,27 @@ export default defineConfig({
 			testDir: 'tests/02_intermediate',
 		},
 		{
+			name: '中級 firefox',
+			testDir: 'tests/02_intermediate',
+			use: {
+				...devices['Desktop Firefox'],
+			},
+		},
+		{
+			name: '中級 webkit',
+			testDir: 'tests/02_intermediate',
+			use: {
+				...devices['Desktop Safari'],
+			},
+		},
+		{
 			name: '上級',
 			testDir: 'tests/03_advanced',
+			dependencies: ['setup'],
 			use: {
 				storageState: 'tests/auth/user.json',
 			},
-			dependencies: ['setup'],
-		}
-		// {
-		// 	name: 'chromium',
-		// 	use: {
-		// 		...devices['Desktop Chrome'],
-		// 		storageState: 'tests/auth/user.json',
-		// 	},
-		// 	dependencies: ['setup'],
-		// },
-		// {
-		// 	name: 'firefox',
-		// 	use: {
-		// 		...devices['Desktop Firefox'],
-		// 		storageState: 'tests/auth/user.json',
-		// 	},
-		// 	dependencies: ['setup'],
-		// },
-		// {
-		// 	name: 'webkit',
-		// 	use: {
-		// 		...devices['Desktop Safari'],
-		// 		storageState: 'tests/auth/user.json',
-		// 	},
-		// 	dependencies: ['setup'],
-		// },
+		},
 	]
 });
 

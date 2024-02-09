@@ -31,13 +31,14 @@
 	<aside class="todo">
 		<details>
 			<summary data-testid="todo-title">
-				<input
+				<!-- バグっとるからコメント :P -->
+				<!-- <input
 					id="isdone"
 					name="isdone"
 					type="checkbox"
 					checked={isdone}
 					on:change={(e) => form.requestSubmit()}
-				/>
+				/> -->
 				{title}
 				{' '}
 				{displayDate}

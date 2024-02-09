@@ -77,8 +77,8 @@ export class TodoPageModel {
         await expect(this.page).toHaveTitle(this.title)
     }
 
-    async expectTaskVisible(isVisible = true) {
-        await expect(this.tasks.first()).toBeVisible({ visible: isVisible })
+    async expectTaskVisible(isVisible = true, index = 0) {
+        await expect(this.tasks.nth(index)).toBeVisible({ visible: isVisible })
         await expect(this.noTaskText).toBeVisible({ visible: !isVisible })
     }
 

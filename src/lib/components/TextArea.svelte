@@ -12,7 +12,7 @@
 <div>
 	<label>
 		{label}
-		<textarea class={className} {placeholder} {required} {disabled} {id} name={id} {value} />
+		<textarea class={className} {placeholder} {required} {disabled} {id} name={id} bind:value />
 	</label>
 </div>
 

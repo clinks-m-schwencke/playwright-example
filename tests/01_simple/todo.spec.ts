@@ -62,7 +62,7 @@ test('タスクが表示する', async ({ page }) => {
 
 test('タスクを追加', async ({ page }) => {
 
-    // POSTを実際に送らないよう
+    // POSTを実際に送らないよう ※ 後ほど説明します
     await mockPostApi(page)
 
     const email = process.env.LOGIN_EMAIL
@@ -91,6 +91,8 @@ test('タスクを追加', async ({ page }) => {
 
     // テスト表示せず、テストがないメッセージが表示
     await page.getByRole('button', { name: 'Add New Task' }).click()
+
+    await page.getByLabel('Title *').fill('NEW TASK')
 
     await page.getByRole('button', { name: 'Add Task' }).click()
 

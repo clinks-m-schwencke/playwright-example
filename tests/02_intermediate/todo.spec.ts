@@ -37,8 +37,9 @@ test.describe('テストをまとめる', () => {
         await page.waitForURL('/')
     })
 
-    test.fixme('このテストまだできていない', async ({ page }) => {
+    test('このテストまだできていない', async ({ page }) => {
         // TODO
+        test.fixme()
     })
 
     test('Chromeだけ対応できるテスト', async ({ page, browserName }) => {

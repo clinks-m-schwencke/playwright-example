@@ -22,3 +22,6 @@ npx playwright test
 # テストのUIモードを開く
 npx playwright test --ui
 ```
+
+## Playwrightのドキュメンテーション
+https://playwright.dev/docs

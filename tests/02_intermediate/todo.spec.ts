@@ -96,10 +96,10 @@ test.describe('テストをまとめる', () => {
 
 
 
-    test('タスクを追加', async ({ page, context }) => {
+    test('タスクを追加', async ({ page }) => {
 
         // POSTを実際に送らないよう
-        await context.route('**/api/todo**', async (route, request) => {
+        await page.route('**/api/todo**', async (route, request) => {
             if (request.method() !== 'POST') {
                 return route.continue()
             }
@@ -113,7 +113,7 @@ test.describe('テストをまとめる', () => {
         })
         // テスト表示せず、テストがないメッセージが表示
         await page.getByRole('button', { name: 'Add New Task' }).click()
-        await page.getByLabel('Title *').fill('NEW TASK')
+        await page.getByLabel('Title').fill('NEW TASK')
 
         await page.getByRole('button', { name: 'Add Task' }).click()
 

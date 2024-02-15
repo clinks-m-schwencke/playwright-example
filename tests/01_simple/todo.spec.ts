@@ -54,7 +54,6 @@ test('タスクが表示する', async ({ page }) => {
 
     // タスクの値を確認
     await expect(page.getByLabel('Title')).toHaveValue('test task')
-    // await expect()
     await expect(page.getByLabel('Due Date')).toHaveValue('2024-02-02')
     await expect(page.getByLabel('Description')).toHaveValue('A description for the test task')
 
@@ -92,8 +91,6 @@ test('タスクを追加', async ({ page }) => {
     // テスト表示せず、テストがないメッセージが表示
     await page.getByRole('button', { name: 'Add New Task' }).click()
 
-    await page.getByLabel('Title *').fill('NEW TASK')
-
     await page.getByRole('button', { name: 'Add Task' }).click()
 
     await expect(page.getByText('NEW TASK', { exact: true })).toBeVisible()
@@ -114,6 +111,3 @@ async function mockPostApi(page: Page) {
         })
     })
 }
-
-
-// await page.getByLabel('Title *').fill('NEW TASK')

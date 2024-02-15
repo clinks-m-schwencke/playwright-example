@@ -33,7 +33,7 @@
 		});
 		const json = await res.json();
 		// 日付を掃除
-		json.duedate = json.duedate.split(' ')[0];
+		json.duedate = json.duedate ? json.duedate.split(' ')[0] : '';
 		onSave(json);
 	}
 </script>

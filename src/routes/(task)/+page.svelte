@@ -11,7 +11,13 @@
 		const res = await fetch('api/todo');
 		const json = await res.json();
 		// Clean up dates
-		tasks = json.map((task: ITodo) => ({ ...task, duedate: task.duedate.split(' ')[0] }));
+		tasks = json.map((task: ITodo) => ({
+			title: task.title,
+			description: task.description,
+			duedate: task.duedate.split(' ')[0],
+			isdone: task.isdone,
+			id: task.id
+		}));
 	}
 
 	const onSaveEdit = (index: number) => (newTodo: ITodo) => {

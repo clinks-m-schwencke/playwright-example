@@ -11,6 +11,9 @@ npm install
 
 # 開発サーバーを実行
 npm run dev
+
+# バックエンド (Pocketbase) を実行
+./pocketbase serve
 ```
 
 ## Playwrightのテストを実行
